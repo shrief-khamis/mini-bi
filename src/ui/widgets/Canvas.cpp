@@ -1,4 +1,4 @@
-#include "Canvas.h"
+#include "ui/widgets/Canvas.h"
 
 #include <QFrame>
 #include <QVBoxLayout>

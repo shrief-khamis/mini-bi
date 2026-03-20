@@ -1,4 +1,4 @@
-#include "Controlpanel.h"
+#include "ui/widgets/Controlpanel.h"
 
 #include <QFrame>
 #include <QPushButton>

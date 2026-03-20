@@ -1,7 +1,7 @@
-#include "MainWindow.h"
+#include "app/MainWindow.h"
 
-#include "Canvas.h"
-#include "Controlpanel.h"
+#include "ui/widgets/Canvas.h"
+#include "ui/widgets/Controlpanel.h"
 
 #include <QHBoxLayout>
 #include <QMessageBox>
