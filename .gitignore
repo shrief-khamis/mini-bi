@@ -1,0 +1,132 @@
+# -----------------------------
+# OS files
+# -----------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# -----------------------------
+# Editor / IDE
+# -----------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# -----------------------------
+# CMake / build artifacts
+# -----------------------------
+build/
+build-*/
+cmake-build-*/
+out/
+bin/
+lib/
+dist/
+
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+compile_commands.json
+install_manifest.txt
+Testing/
+
+# CMake package config/build system byproducts
+*.cmake.user
+
+# -----------------------------
+# C/C++ build outputs
+# -----------------------------
+*.o
+*.obj
+*.lo
+*.la
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug symbols / profiling
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.ilk
+*.prof
+*.gcno
+*.gcda
+*.gcov
+*.gch
+
+# -----------------------------
+# Qt-specific generated files
+# -----------------------------
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qmake.stash
+
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+
+# Resource compiler byproducts
+*.qmlc
+*.jsc
+*.rcc
+
+# Qt Creator build dirs
+*.autosave
+*.creator
+*.creator.user
+*.creator.user.*
+*.files
+*.includes
+*.config
+*.qmake.cache
+
+# -----------------------------
+# Logs / temporary
+# -----------------------------
+*.log
+*.tmp
+*.temp
+*.pid
+*.seed
+
+# -----------------------------
+# Archives / packaged artifacts
+# -----------------------------
+*.7z
+*.gz
+*.zip
+*.tar
+*.tgz
+*.bz2
+*.rar
+
+# -----------------------------
+# Local environment files
+# -----------------------------
+.env
+.env.*
+*.local
+
+# -----------------------------
+# Dev assets
+# -----------------------------
+input-data/
+output-graphs/
