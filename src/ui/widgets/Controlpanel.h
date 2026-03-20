@@ -4,12 +4,12 @@
 
 class QPushButton;
 
-class Controlpanel : public QWidget {
+class ControlPanel : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Controlpanel(QWidget* parent = nullptr);
-    ~Controlpanel() override = default;
+    explicit ControlPanel(QWidget* parent = nullptr);
+    ~ControlPanel() override = default;
 
 signals:
     void loadDataRequested();

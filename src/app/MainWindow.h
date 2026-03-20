@@ -3,7 +3,7 @@
 #include <QMainWindow>
 
 class Canvas;
-class Controlpanel;
+class ControlPanel;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -17,6 +17,6 @@ protected:
     virtual void configureUi();
 
 private:
-    Controlpanel* m_controlPanel = nullptr;
+    ControlPanel* m_controlPanel = nullptr;
     Canvas* m_canvasPanel = nullptr;
 };

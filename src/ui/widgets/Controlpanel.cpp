@@ -1,16 +1,18 @@
-#include "ui/widgets/Controlpanel.h"
+#include "ui/widgets/ControlPanel.h"
+
+#include "logging/Log.h"
 
 #include <QFrame>
 #include <QPushButton>
 #include <QVBoxLayout>
 
-Controlpanel::Controlpanel(QWidget* parent)
+ControlPanel::ControlPanel(QWidget* parent)
     : QWidget(parent) {
     configureUi();
     wireSignals();
 }
 
-void Controlpanel::configureUi() {
+void ControlPanel::configureUi() {
     auto* rootLayout = new QVBoxLayout(this);
     rootLayout->setContentsMargins(0, 0, 0, 0);
 
@@ -51,7 +53,13 @@ void Controlpanel::configureUi() {
     rootLayout->addWidget(frame);
 }
 
-void Controlpanel::wireSignals() {
-    connect(m_loadDataButton, &QPushButton::clicked, this, &Controlpanel::loadDataRequested);
-    connect(m_plotButton, &QPushButton::clicked, this, &Controlpanel::plotRequested);
+void ControlPanel::wireSignals() {
+    connect(m_loadDataButton, &QPushButton::clicked, this, [this]() {
+        Log::debug(LogCategory::UI, QStringLiteral("Load Data button clicked"));
+        emit loadDataRequested();
+    });
+    connect(m_plotButton, &QPushButton::clicked, this, [this]() {
+        Log::debug(LogCategory::UI, QStringLiteral("Plot button clicked"));
+        emit plotRequested();
+    });
 }
