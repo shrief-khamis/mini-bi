@@ -14,6 +14,8 @@ public:
 private slots:
     void onLoadDataRequested();
     void onPlotRequested();
+    void onImportPreviewConfirmed();
+    void onImportPreviewCanceled();
 
 private:
     void wireSignals();

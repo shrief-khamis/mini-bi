@@ -3,6 +3,7 @@
 #include "app/MainWindow.h"
 #include "data/ingestion/CSVReader.h"
 #include "logging/Log.h"
+#include "ui/dialogs/ImportPreviewDialog.h"
 #include "ui/widgets/Canvas.h"
 #include "ui/widgets/ControlPanel.h"
 
@@ -50,11 +51,6 @@ void AppController::onLoadDataRequested() {
     }
 
     const QString fileName = QFileInfo(selectedFilePath).fileName();
-    const QString details = QStringLiteral("File: %1\nColumns: %2\nRows: %3")
-                                .arg(fileName)
-                                .arg(table->columnCount())
-                                .arg(table->rowCount());
-
     Log::info(
         LogCategory::App,
         QStringLiteral("Loaded data file '%1' (%2 columns, %3 rows)")
@@ -63,15 +59,23 @@ void AppController::onLoadDataRequested() {
             .arg(table->rowCount())
     );
 
-    auto* dialog = new QMessageBox(m_mainWindow);
-    dialog->setWindowTitle("Data Loaded");
-    dialog->setText(details);
-    dialog->setIcon(QMessageBox::Information);
-    dialog->addButton("Confirm", QMessageBox::AcceptRole);
+    auto* dialog = new ImportPreviewDialog(m_mainWindow);
+    dialog->setPreviewData(fileName, table.value());
+    connect(dialog, &ImportPreviewDialog::confirmRequested, this, &AppController::onImportPreviewConfirmed);
+    connect(dialog, &ImportPreviewDialog::cancelRequested, this, &AppController::onImportPreviewCanceled);
     dialog->exec();
+    dialog->deleteLater();
 }
 
 void AppController::onPlotRequested() {
     Log::info(LogCategory::UI, QStringLiteral("Plot action requested"));
     m_mainWindow->canvasPanel()->renderPlaceholderPlot();
+}
+
+void AppController::onImportPreviewConfirmed() {
+    Log::info(LogCategory::UI, QStringLiteral("Import preview confirmed"));
+}
+
+void AppController::onImportPreviewCanceled() {
+    Log::info(LogCategory::UI, QStringLiteral("Import preview canceled"));
 }

@@ -1,4 +1,8 @@
 add_library(minibi_ui
+    dialogs/ImportPreviewDialog.cpp
+    dialogs/ImportPreviewDialog.h
+    models/TableViewModel.cpp
+    models/TableViewModel.h
     widgets/Canvas.cpp
     widgets/Canvas.h
     widgets/ControlPanel.cpp
