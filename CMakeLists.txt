@@ -14,6 +14,7 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 add_subdirectory(src/logging)
+add_subdirectory(src/plot)
 add_subdirectory(src/ui)
 add_subdirectory(src/app)
 

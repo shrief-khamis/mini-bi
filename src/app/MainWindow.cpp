@@ -37,7 +37,8 @@ void MainWindow::configureUi() {
     });
 
     connect(m_controlPanel, &ControlPanel::plotRequested, this, [this]() {
-        QMessageBox::information(this, "Plot", "Plot clicked.");
+        Log::info(LogCategory::UI, QStringLiteral("Plot action requested"));
+        m_canvasPanel->renderPlaceholderPlot();
     });
 
     Log::info(LogCategory::App, QStringLiteral("Main window UI ready"));
