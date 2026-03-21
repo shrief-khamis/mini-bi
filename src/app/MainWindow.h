@@ -11,6 +11,8 @@ class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow() override = default;
+    ControlPanel* controlPanel() const;
+    Canvas* canvasPanel() const;
 
 protected:
     // Override to register menus, actions, and global UI state.

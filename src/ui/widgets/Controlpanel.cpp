@@ -54,12 +54,18 @@ void ControlPanel::configureUi() {
 }
 
 void ControlPanel::wireSignals() {
-    connect(m_loadDataButton, &QPushButton::clicked, this, [this]() {
-        Log::debug(LogCategory::UI, QStringLiteral("Load Data button clicked"));
-        emit loadDataRequested();
-    });
-    connect(m_plotButton, &QPushButton::clicked, this, [this]() {
-        Log::debug(LogCategory::UI, QStringLiteral("Plot button clicked"));
-        emit plotRequested();
-    });
+    connect(m_loadDataButton, &QPushButton::clicked, this, &ControlPanel::onLoadDataButtonClicked);
+    connect(m_plotButton, &QPushButton::clicked, this, &ControlPanel::onPlotButtonClicked);
+}
+
+void ControlPanel::onLoadDataButtonClicked() {
+    Log::debug(LogCategory::UI, QStringLiteral("Load Data button clicked"));
+    // Placeholder for local UI-side action before forwarding to app flow.
+    emit loadDataRequested();
+}
+
+void ControlPanel::onPlotButtonClicked() {
+    Log::debug(LogCategory::UI, QStringLiteral("Plot button clicked"));
+    // Placeholder for local UI-side action before forwarding to app flow.
+    emit plotRequested();
 }

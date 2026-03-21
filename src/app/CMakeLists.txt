@@ -1,4 +1,6 @@
 add_library(minibi_app
+    AppController.cpp
+    AppController.h
     MainWindow.cpp
     MainWindow.h
 )

@@ -18,6 +18,8 @@ signals:
 private:
     void configureUi();
     void wireSignals();
+    void onLoadDataButtonClicked();
+    void onPlotButtonClicked();
 
     QPushButton* m_loadDataButton = nullptr;
     QPushButton* m_plotButton = nullptr;

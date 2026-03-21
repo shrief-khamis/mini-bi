@@ -5,12 +5,19 @@
 #include "ui/widgets/ControlPanel.h"
 
 #include <QHBoxLayout>
-#include <QMessageBox>
 #include <QWidget>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent) {
     configureUi();
+}
+
+ControlPanel* MainWindow::controlPanel() const {
+    return m_controlPanel;
+}
+
+Canvas* MainWindow::canvasPanel() const {
+    return m_canvasPanel;
 }
 
 void MainWindow::configureUi() {
@@ -31,15 +38,6 @@ void MainWindow::configureUi() {
 
     layout->addWidget(m_controlPanel, 1);
     layout->addWidget(m_canvasPanel, 4);
-
-    connect(m_controlPanel, &ControlPanel::loadDataRequested, this, [this]() {
-        QMessageBox::information(this, "Load Data", "Load Data clicked.");
-    });
-
-    connect(m_controlPanel, &ControlPanel::plotRequested, this, [this]() {
-        Log::info(LogCategory::UI, QStringLiteral("Plot action requested"));
-        m_canvasPanel->renderPlaceholderPlot();
-    });
 
     Log::info(LogCategory::App, QStringLiteral("Main window UI ready"));
 }
