@@ -9,6 +9,7 @@ target_link_libraries(minibi_app
     PUBLIC
         Qt${QT_VERSION_MAJOR}::Widgets
         minibi_ui
+        minibi_data
 )
 
 target_include_directories(minibi_app
