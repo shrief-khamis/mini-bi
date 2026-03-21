@@ -5,6 +5,8 @@
 #include "ui/widgets/Canvas.h"
 #include "ui/widgets/ControlPanel.h"
 
+#include <QFileDialog>
+#include <QFileInfo>
 #include <QMessageBox>
 
 AppController::AppController(MainWindow* mainWindow, QObject* parent)
@@ -20,7 +22,23 @@ void AppController::wireSignals() {
 }
 
 void AppController::onLoadDataRequested() {
-    QMessageBox::information(m_mainWindow, "Load Data", "Load Data clicked.");
+    const QString selectedFilePath = QFileDialog::getOpenFileName(
+        m_mainWindow,
+        "Select Data File"
+    );
+
+    if (selectedFilePath.isEmpty()) {
+        Log::info(LogCategory::UI, QStringLiteral("Load Data canceled"));
+        return;
+    }
+
+    const QString fileName = QFileInfo(selectedFilePath).fileName();
+    auto* dialog = new QMessageBox(m_mainWindow);
+    dialog->setWindowTitle("File Selected");
+    dialog->setText(fileName);
+    dialog->setIcon(QMessageBox::Information);
+    dialog->addButton("Confirm", QMessageBox::AcceptRole);
+    dialog->exec();
 }
 
 void AppController::onPlotRequested() {
