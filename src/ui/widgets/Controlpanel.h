@@ -14,13 +14,16 @@ public:
 signals:
     void loadDataRequested();
     void plotRequested();
+    void wipeRequested();
 
 private:
     void configureUi();
     void wireSignals();
     void onLoadDataButtonClicked();
     void onPlotButtonClicked();
+    void onWipeButtonClicked();
 
     QPushButton* m_loadDataButton = nullptr;
     QPushButton* m_plotButton = nullptr;
+    QPushButton* m_wipeButton = nullptr;
 };

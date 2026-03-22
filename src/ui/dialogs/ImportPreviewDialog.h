@@ -17,6 +17,9 @@ public:
 
     void setPreviewData(const QString& fileName, const DataTable& dataTable);
 
+    /** Table shown in the preview (same data passed to confirm). */
+    const DataTable& previewTable() const;
+
 signals:
     void confirmRequested();
     void cancelRequested();
@@ -30,4 +33,5 @@ private:
     QLabel* m_summaryLabel = nullptr;
     QTableView* m_tableView = nullptr;
     TableViewModel* m_tableModel = nullptr;
+    DataTable m_previewTable;
 };

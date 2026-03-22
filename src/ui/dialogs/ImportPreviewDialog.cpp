@@ -16,13 +16,18 @@ ImportPreviewDialog::ImportPreviewDialog(QWidget* parent)
 }
 
 void ImportPreviewDialog::setPreviewData(const QString& fileName, const DataTable& dataTable) {
-    m_tableModel->setDataTable(dataTable);
+    m_previewTable = dataTable;
+    m_tableModel->setDataTable(m_previewTable);
     m_summaryLabel->setText(
         QStringLiteral("File: %1 | Columns: %2 | Rows: %3")
             .arg(fileName)
-            .arg(dataTable.columnCount())
-            .arg(dataTable.rowCount())
+            .arg(m_previewTable.columnCount())
+            .arg(m_previewTable.rowCount())
     );
+}
+
+const DataTable& ImportPreviewDialog::previewTable() const {
+    return m_previewTable;
 }
 
 void ImportPreviewDialog::configureUi() {

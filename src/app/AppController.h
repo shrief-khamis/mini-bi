@@ -1,6 +1,10 @@
 #pragma once
 
+#include "data/table/DataTable.h"
+
 #include <QObject>
+
+#include <optional>
 
 class MainWindow;
 
@@ -14,11 +18,13 @@ public:
 private slots:
     void onLoadDataRequested();
     void onPlotRequested();
-    void onImportPreviewConfirmed();
+    void onWipeRequested();
     void onImportPreviewCanceled();
 
 private:
     void wireSignals();
+    void applyConfirmedImport(const DataTable& table);
 
     MainWindow* m_mainWindow = nullptr;
+    std::optional<DataTable> m_loadedData;
 };

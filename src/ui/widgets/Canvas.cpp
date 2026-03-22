@@ -1,10 +1,7 @@
 #include "ui/widgets/Canvas.h"
 
-#include "plot/PlotRenderer.h"
-
 #include <QPaintEvent>
 #include <QPainter>
-#include <QRect>
 
 Canvas::Canvas(QWidget* parent)
     : QWidget(parent) {
@@ -22,8 +19,8 @@ void Canvas::configureUi() {
     );
 }
 
-void Canvas::renderPlaceholderPlot() {
-    m_showPlaceholderPlot = true;
+void Canvas::renderPlot(std::unique_ptr<PlotRenderer> renderer) {
+    m_renderer = std::move(renderer);
     update();
 }
 
@@ -32,13 +29,9 @@ void Canvas::paintEvent(QPaintEvent* event) {
     QPainter painter(this);
     painter.fillRect(rect(), Qt::white);
 
-    if (!m_showPlaceholderPlot) {
-        return;
-    }
-
-
     const QRect drawableArea = rect().adjusted(16, 16, -16, -16);
 
-    PlotRenderer renderer;
-    renderer.drawCenteredCircle(painter, drawableArea);
+    if (m_renderer) {
+        m_renderer->render(painter, drawableArea);
+    }
 }

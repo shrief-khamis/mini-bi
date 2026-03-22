@@ -45,9 +45,11 @@ void ControlPanel::configureUi() {
 
     m_loadDataButton = new QPushButton("Load Data", frame);
     m_plotButton = new QPushButton("Plot", frame);
+    m_wipeButton = new QPushButton("Wipe", frame);
 
     frameLayout->addWidget(m_loadDataButton);
     frameLayout->addWidget(m_plotButton);
+    frameLayout->addWidget(m_wipeButton);
     frameLayout->addStretch();
 
     rootLayout->addWidget(frame);
@@ -56,6 +58,7 @@ void ControlPanel::configureUi() {
 void ControlPanel::wireSignals() {
     connect(m_loadDataButton, &QPushButton::clicked, this, &ControlPanel::onLoadDataButtonClicked);
     connect(m_plotButton, &QPushButton::clicked, this, &ControlPanel::onPlotButtonClicked);
+    connect(m_wipeButton, &QPushButton::clicked, this, &ControlPanel::onWipeButtonClicked);
 }
 
 void ControlPanel::onLoadDataButtonClicked() {
@@ -68,4 +71,9 @@ void ControlPanel::onPlotButtonClicked() {
     Log::debug(LogCategory::UI, QStringLiteral("Plot button clicked"));
     // Placeholder for local UI-side action before forwarding to app flow.
     emit plotRequested();
+}
+
+void ControlPanel::onWipeButtonClicked() {
+    Log::debug(LogCategory::UI, QStringLiteral("Wipe button clicked"));
+    emit wipeRequested();
 }
