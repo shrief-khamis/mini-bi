@@ -3,6 +3,8 @@ add_library(minibi_plot
     core/PlotRenderer.h
     PlaceholderPlot.cpp
     PlaceholderPlot.h
+    line/LinePlot.cpp
+    line/LinePlot.h
     scatter/ScatterPlot.cpp
     scatter/ScatterPlot.h
 )

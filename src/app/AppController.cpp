@@ -4,7 +4,7 @@
 #include "data/ingestion/CSVReader.h"
 #include "logging/Log.h"
 #include "plot/PlaceholderPlot.h"
-#include "plot/scatter/ScatterPlot.h"
+#include "plot/line/LinePlot.h"
 #include "ui/dialogs/ImportPreviewDialog.h"
 #include "ui/widgets/Canvas.h"
 #include "ui/widgets/ControlPanel.h"
@@ -14,6 +14,8 @@
 #include <QMessageBox>
 
 #include <memory>
+
+#include "plot/scatter/ScatterPlot.h"
 
 AppController::AppController(MainWindow* mainWindow, QObject* parent)
     : QObject(parent), m_mainWindow(mainWindow) {
@@ -96,7 +98,7 @@ void AppController::onPlotRequested() {
         return;
     }
 
-    m_mainWindow->canvasPanel()->renderPlot(std::make_unique<ScatterPlot>(*m_loadedData));
+    m_mainWindow->canvasPanel()->renderPlot(std::make_unique<LinePlot>(*m_loadedData));
 }
 
 void AppController::onWipeRequested() {

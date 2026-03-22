@@ -55,28 +55,63 @@ After building:
 
 ## Project layout
 
-Source is grouped by concern. **Include paths are rooted at `src/`** (e.g. `#include "app/MainWindow.h"`, `#include "logging/Log.h"`).
+Source is grouped by concern. **Include paths are rooted at `src/`** (e.g. `#include "app/MainWindow.h"`, `#include "plot/line/LinePlot.h"`, `#include "data/table/DataTable.h"`).
 
 ```text
 .
-├── CMakeLists.txt                 # Top-level: executable + subdirectories
+├── CMakeLists.txt              # Top-level executable + subdirectory order
+├── README.md
+├── input-data/                 # Sample CSVs for manual testing (not part of the build)
+│   ├── ascending_series_100.csv
+│   ├── correlated_scatter_1000.csv
+│   ├── sample_mixed_types.csv
+│   └── sample_xy_100.csv
 └── src
-    ├── main.cpp                   # Application entry point
-    ├── app/                       # Application shell (main window)
-    │   ├── CMakeLists.txt         # minibi_app library
+    ├── main.cpp                # Application entry point
+    ├── app/                    # Main window + cross-cutting actions (minibi_app)
+    │   ├── CMakeLists.txt
+    │   ├── AppController.h
+    │   ├── AppController.cpp
     │   ├── MainWindow.h
     │   └── MainWindow.cpp
-    ├── ui/                        # UI (widgets, dialogue boxes, tables...etc)
-    │   ├── CMakeLists.txt         # minibi_ui library
-    │   └── widgets/
-    │       ├── Canvas.h
-    │       ├── Canvas.cpp
-    │       ├── ControlPanel.h
-    │       └── ControlPanel.cpp
-    └── logging/                   # Logging helpers
-        ├── CMakeLists.txt         # minibi_logging library
-        ├── Log.h
-        └── Log.cpp
+    ├── data/                   # Tabular model + CSV ingestion (minibi_data)
+    │   ├── CMakeLists.txt
+    │   ├── ingestion/
+    │   │   ├── CSVReader.h
+    │   │   └── CSVReader.cpp
+    │   └── table/
+    │       ├── DataTable.h
+    │       └── DataTable.cpp
+    ├── logging/                # Logging helpers (minibi_logging)
+    │   ├── CMakeLists.txt
+    │   ├── Log.h
+    │   └── Log.cpp
+    ├── plot/                   # Plot renderers used by the canvas (minibi_plot)
+    │   ├── CMakeLists.txt
+    │   ├── PlaceholderPlot.h
+    │   ├── PlaceholderPlot.cpp
+    │   ├── core/
+    │   │   ├── PlotData.h
+    │   │   └── PlotRenderer.h
+    │   ├── line/
+    │   │   ├── LinePlot.h
+    │   │   └── LinePlot.cpp
+    │   └── scatter/
+    │       ├── ScatterPlot.h
+    │       └── ScatterPlot.cpp
+    └── ui/                     # Widgets, dialogs, Qt view models (minibi_ui)
+        ├── CMakeLists.txt
+        ├── dialogs/
+        │   ├── ImportPreviewDialog.h
+        │   └── ImportPreviewDialog.cpp
+        ├── models/
+        │   ├── TableViewModel.h
+        │   └── TableViewModel.cpp
+        └── widgets/
+            ├── Canvas.h
+            ├── Canvas.cpp
+            ├── ControlPanel.h
+            └── ControlPanel.cpp
 ```
 
 ## CMake targets
@@ -84,11 +119,13 @@ Source is grouped by concern. **Include paths are rooted at `src/`** (e.g. `#inc
 | Target           | Role |
 |------------------|------|
 | `minibi`         | Executable; links `minibi_app` |
-| `minibi_app`     | Static library: `MainWindow` |
-| `minibi_ui`      | Static library: `Canvas`, `ControlPanel`, … |
-| `minibi_logging` | Static library: `Log` (Qt **Core**) |
+| `minibi_app`     | Static library: `AppController`, `MainWindow` |
+| `minibi_ui`      | Static library: `Canvas`, `ControlPanel`, `ImportPreviewDialog`, `TableViewModel`, … |
+| `minibi_plot`    | Static library: `PlotRenderer` implementations (`PlaceholderPlot`, `LinePlot`, `ScatterPlot`, …) |
+| `minibi_data`    | Static library: `DataTable`, `CSVReader` |
+| `minibi_logging` | Static library: `Log` |
 
-The UI and app libraries depend on logging where needed; the top-level `CMakeLists.txt` wires `add_subdirectory` for `logging`, then `ui`, then `app`.
+The top-level `CMakeLists.txt` adds subdirectories in dependency order: **`logging` → `data` → `plot` → `ui` → `app`**. `minibi_plot` links `minibi_data`; `minibi_ui` links `minibi_plot` and `minibi_logging`; `minibi_app` links `minibi_ui` and `minibi_data`.
 
 ## Notes
 
