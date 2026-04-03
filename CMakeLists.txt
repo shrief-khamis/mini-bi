@@ -25,6 +25,16 @@ add_executable(minibi
 
 target_link_libraries(minibi PRIVATE minibi_app)
 
+if(APPLE)
+    set_target_properties(minibi PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_GUI_IDENTIFIER "com.minibi.app"
+        MACOSX_BUNDLE_BUNDLE_NAME "miniBI"
+        MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
+    )
+endif()
+
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(minibi)
 endif()
