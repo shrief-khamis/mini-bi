@@ -1,4 +1,5 @@
 add_library(minibi_plot
+    core/PlotData.cpp
     core/PlotData.h
     core/PlotRenderer.h
     PlaceholderPlot.cpp

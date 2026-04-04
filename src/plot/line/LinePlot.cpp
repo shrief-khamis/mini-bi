@@ -1,5 +1,7 @@
 #include "plot/line/LinePlot.h"
 
+#include "plot/core/PlotData.h"
+
 #include <QFontMetricsF>
 #include <QPainter>
 #include <QPen>
@@ -9,8 +11,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <optional>
-#include <variant>
 
 namespace {
 
@@ -18,22 +18,6 @@ constexpr int kMarginLeft = 56;
 constexpr int kMarginRight = 16;
 constexpr int kMarginTop = 16;
 constexpr int kMarginBottom = 52;
-
-std::optional<double> cellToDouble(const CellValue& cell) {
-    if (std::holds_alternative<double>(cell))
-        return std::get<double>(cell);
-    if (std::holds_alternative<int>(cell))
-        return static_cast<double>(std::get<int>(cell));
-    if (std::holds_alternative<bool>(cell))
-        return std::get<bool>(cell) ? 1.0 : 0.0;
-    if (std::holds_alternative<QString>(cell)) {
-        bool ok = false;
-        const double v = std::get<QString>(cell).toDouble(&ok);
-        if (ok)
-            return v;
-    }
-    return std::nullopt;
-}
 
 double expandIfEqual(double minV, double maxV) {
     if (minV == maxV) {
@@ -70,8 +54,8 @@ void LinePlot::setData(const DataTable& table) {
     m_y.reserve(static_cast<std::size_t>(rows));
 
     for (int i = 0; i < rows; ++i) {
-        const auto xOpt = cellToDouble(xCol.values[static_cast<std::size_t>(i)]);
-        const auto yOpt = cellToDouble(yCol.values[static_cast<std::size_t>(i)]);
+        const auto xOpt = PlotData::cellToDouble(xCol.values[static_cast<std::size_t>(i)]);
+        const auto yOpt = PlotData::cellToDouble(yCol.values[static_cast<std::size_t>(i)]);
         if (!xOpt.has_value() || !yOpt.has_value())
             continue;
         if (!std::isfinite(*xOpt) || !std::isfinite(*yOpt))

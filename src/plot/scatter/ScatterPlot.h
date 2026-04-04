@@ -10,7 +10,7 @@
 
 /**
  * Scatter plot: reads numeric pairs from the first two columns of a DataTable,
- * then renders axes, ticks, labels, and points. No separate PlotData type.
+ * then renders axes, ticks, labels, and points.
  */
 class ScatterPlot : public PlotRenderer {
 public:

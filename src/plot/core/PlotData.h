@@ -1,7 +1,15 @@
 #pragma once
 
+#include "data/table/DataTable.h"
+
+#include <QString>
+#include <optional>
+
 /**
- * Data contract passed into plot implementations (scatter series, histogram bins, etc.).
- * Populated in a later phase; kept minimal for now.
+ * Plot-facing helpers for interpreting table cells (parsing, labels).
  */
-struct PlotData {};
+class PlotData {
+public:
+    static std::optional<double> cellToDouble(const CellValue& cell);
+    static std::optional<QString> cellToCategory(const CellValue& cell);
+};
